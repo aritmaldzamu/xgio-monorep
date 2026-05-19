@@ -7,7 +7,7 @@ Para garantizar la seguridad de los usuarios, la precisión del módulo GPS inte
 El siguiente análisis de dispersión muestra la precisión posicional del GPS en un estado estático a lo largo de 5 minutos. El objetivo de esta prueba era evaluar la deriva ("drift") inherente al sensor.
 
 <div align="center">
-  <img src="assets/graficas_reporte/dispersion_5min.png" alt="Dispersión GPS a 5 minutos" width="600" />
+  <img src="/xgio-monorep/assets/graficas_reporte/dispersion_5min.png" alt="Dispersión GPS a 5 minutos" width="600" />
 </div>
 
 **Interpretación de Resultados:**
@@ -21,7 +21,7 @@ Para las pruebas dinámicas (en movimiento), comparamos los datos crudos transmi
 ### Datos Crudos (Primeros 5 minutos)
 
 <div align="center">
-  <img src="assets/graficas_reporte/polylines_0a5min.png" alt="Polilíneas Crudas" width="600" />
+  <img src="/xgio-monorep/assets/graficas_reporte/polylines_0a5min.png" alt="Polilíneas Crudas" width="600" />
 </div>
 
 **Interpretación de Resultados:**
@@ -31,7 +31,7 @@ Para las pruebas dinámicas (en movimiento), comparamos los datos crudos transmi
 ### Polilíneas Limpias y Filtradas
 
 <div align="center">
-  <img src="assets/graficas_reporte/polylines_clean_2.5ms.png" alt="Polilíneas Filtradas" width="600" />
+  <img src="/xgio-monorep/assets/graficas_reporte/polylines_clean_2.5ms.png" alt="Polilíneas Filtradas" width="600" />
 </div>
 
 **Interpretación de Resultados:**
