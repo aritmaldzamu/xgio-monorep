@@ -1,7 +1,9 @@
 # Bienvenidos a XGIO 🦯
 
 <div align="center">
-  <img src="/xgio-monorep/assets/imagenes/logo_ibero.png" alt="Logo Ibero Puebla" width="200" />
+  <span style="display: inline-block; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 999px; padding: 6px 22px; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #a5b4fc;">
+    Universidad Iberoamericana Puebla
+  </span>
 </div>
 
 **XGIO** es un **Sistema de Rastreo GPS en Tiempo Real** para un Bastón Inteligente. Desarrollado como un proyecto de ingeniería interdisciplinaria en la **Universidad Iberoamericana Puebla**, tiene como propósito principal mejorar la autonomía, movilidad y seguridad de las personas con discapacidad visual, al mismo tiempo que ofrece tranquilidad a sus cuidadores.
