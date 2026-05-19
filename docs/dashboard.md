@@ -1,205 +1,244 @@
-# 🖥️ Panel de Administración (Dashboard Web)
+# Panel de Administracion (Dashboard Web)
 
-El Dashboard de XGIO es una aplicación web de administración construida con **React + Vite**, diseñada para que los administradores del sistema monitoreen en tiempo real el estado de todos los usuarios y bastones registrados en la plataforma.
+El Dashboard de XGIO es una aplicacion web de administracion construida con **React + Vite**. Esta disenada para que los administradores monitoreen usuarios, bastones, rutas y alertas en tiempo real desde una sola interfaz.
 
 !!! note "Acceso"
-    El dashboard es una herramienta interna. No es público. Está pensado para ser usado por el equipo de soporte o los familiares cuidadores con rol de administrador.
+    El dashboard es una herramienta interna. No es publico. Esta pensado para el equipo de soporte, administradores y familiares cuidadores con permisos de gestion.
 
 ---
 
-## 🏗️ Arquitectura y Stack
+## Interfaz y Experiencia de Usuario (UI/UX)
 
-| Tecnología | Uso |
-|---|---|
-| **React + Vite** | Framework de UI y bundler ultrarrápido |
-| **Firebase Firestore** | Base de datos en tiempo real (listener `onSnapshot`) |
-| **Recharts** | Gráficas de barras y donut para métricas |
-| **Lucide Icons** | Iconografía del panel |
-| **Google Maps Embed** | Mapa en tiempo real del usuario seleccionado |
+El panel usa una interfaz en modo oscuro, con navegacion lateral fija, busqueda global, tarjetas de resumen y modulos especializados para operacion diaria.
 
----
+### 1. Metricas Globales en Tiempo Real
 
-## 📊 Módulos del Dashboard
-
-### 1. Métricas Globales en Tiempo Real
-
-La página principal muestra 4 tarjetas de KPI que se actualizan automáticamente cuando llegan datos de Firestore:
+La pantalla principal resume el estado general de la plataforma: usuarios registrados, bastones vinculados, rutas registradas y alertas S.O.S activas. Las metricas se alimentan desde Firestore para reflejar cambios de manera inmediata.
 
 <div align="center">
-  <img src="/xgio-monorep/assets/imagenes/estado_baston.jpeg" alt="Dashboard - Estado del bastón" width="600" />
+  <img src="../assets/imagenes/dashboard_metricas.png" alt="Dashboard - metricas globales" width="700" />
 </div>
 
-```jsx
-// admin/src/App.jsx — Suscripción en tiempo real a todos los usuarios
-useEffect(() => {
-  setLoading(true);
-  const unsub = onSnapshot(
-    collection(db, "users"),
-    (snapshot) => {
-      const usersList = [];
-      snapshot.forEach((doc) => {
-        usersList.push({ id: doc.id, ...doc.data() });
+!!! tip "Lectura rapida"
+    La tarjeta de alertas permite detectar emergencias activas de inmediato, mientras que el grafico de actividad ayuda a revisar el comportamiento general de la aplicacion.
+
+### 2. Directorio de Usuarios
+
+El modulo de usuarios muestra el directorio completo con nombre, correo electronico, ID del baston, fecha de registro y estado de vinculacion. Desde esta vista el administrador puede revisar que usuarios ya tienen un baston asignado.
+
+<div align="center">
+  <img src="../assets/imagenes/dashboard_usuarios.png" alt="Dashboard - directorio de usuarios" width="700" />
+</div>
+
+!!! note "Gestion operativa"
+    Esta tabla funciona como punto de control para validar registros, revisar correos y confirmar que cada usuario tenga asociado el baston correcto.
+
+### 3. Rutas y Mapas
+
+La pantalla de rutas y mapas concentra la ubicacion en tiempo real. El dashboard filtra usuarios activos y muestra el estado actual del rastreo GPS; cuando no hay usuarios enviando coordenadas, presenta un estado vacio claro.
+
+<div align="center">
+  <img src="../assets/imagenes/dashboard_mapa.png" alt="Dashboard - rutas y mapas" width="700" />
+</div>
+
+!!! tip "Tiempo real"
+    El modulo esta pensado para mostrar solo usuarios con actividad reciente, evitando confundir ubicaciones antiguas con posiciones actuales.
+
+### 4. Salud de Dispositivos
+
+La seccion de dispositivos lista los bastones vinculados, su propietario, bateria, ultima conexion y estado BLE. Esto ayuda a identificar bastones sin conexion o sin datos recientes.
+
+<div align="center">
+  <img src="../assets/imagenes/dashboard_dispositivos.png" alt="Dashboard - salud de dispositivos" width="700" />
+</div>
+
+!!! note "Monitoreo"
+    Esta vista permite revisar rapidamente si un baston esta reportando informacion desde la app movil y Firestore.
+
+### 5. Configuracion del Panel
+
+La pantalla de configuracion permite personalizar el perfil del administrador, datos de contacto, idioma del panel y preferencias de alertas. Los cambios se guardan localmente para mantener la experiencia despues de recargar la pagina.
+
+<div align="center">
+  <img src="../assets/imagenes/dashboard_configuracion.png" alt="Dashboard - configuracion del panel" width="700" />
+</div>
+
+!!! tip "Preferencias persistentes"
+    Las opciones de configuracion se guardan en `localStorage`, por lo que no requieren una coleccion adicional en Firebase.
+
+---
+
+## Arquitectura y Stack
+
+| Tecnologia | Uso |
+|---|---|
+| **React + Vite** | Framework de UI y bundler rapido |
+| **Firebase Firestore** | Base de datos en tiempo real con `onSnapshot` |
+| **Recharts** | Graficas de barras y donut para metricas |
+| **Lucide Icons** | Iconografia del panel |
+| **Google Maps Embed** | Mapa en tiempo real del usuario seleccionado |
+| **localStorage** | Persistencia local de preferencias del administrador |
+
+---
+
+## Implementacion y Codigo
+
+El dashboard esta construido alrededor de datos sincronizados en tiempo real y componentes reutilizables.
+
+=== "admin/src/App.jsx - usuarios en tiempo real"
+    ```jsx
+    useEffect(() => {
+      setLoading(true);
+
+      const unsub = onSnapshot(collection(db, "users"), (snapshot) => {
+        const usersList = [];
+        snapshot.forEach((doc) => {
+          usersList.push({ id: doc.id, ...doc.data() });
+        });
+
+        usersList.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+        setUsers(usersList);
+        setLoading(false);
       });
-      usersList.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-      setUsers(usersList);
-      setLoading(false);
+
+      return () => unsub();
+    }, []);
+
+    const activeCanesCount = users.filter(
+      (user) => user.cane_id?.trim() !== ""
+    ).length;
+
+    const sosCount = users.filter(
+      (user) => user.last_alert === "SOS"
+    ).length;
+    ```
+
+=== "admin/src/App.jsx - mapa GPS"
+    ```jsx
+    const renderMap = () => {
+      const ACTIVE_THRESHOLD_MS = 5 * 60 * 1000;
+      const now = Date.now();
+
+      const activeUsers = users
+        .filter((user) => user.cane_id)
+        .map((user) => {
+          const locData = locationsByUser[user.id] || null;
+          const last = locData?.last || null;
+          const diffMs = last
+            ? now - new Date(last.timestamp).getTime()
+            : Infinity;
+
+          return { ...user, last, diffMs };
+        })
+        .filter((user) => user.diffMs <= ACTIVE_THRESHOLD_MS)
+        .sort((a, b) => a.diffMs - b.diffMs);
+
+      const mapSrc = selected
+        ? `https://www.google.com/maps?q=${selected.last.latitude},${selected.last.longitude}&z=17&output=embed`
+        : null;
+
+      return (
+        <div>
+          {mapSrc && <iframe src={mapSrc} title="Ubicacion en vivo" />}
+        </div>
+      );
+    };
+    ```
+
+=== "admin/src/App.jsx - reset de alertas"
+    ```jsx
+    const resetAlerts = async () => {
+      const usersWithAlerts = users.filter(
+        (user) => user.last_alert === "SOS" || user.last_alert === "FALL"
+      );
+
+      for (const user of usersWithAlerts) {
+        await updateDoc(doc(db, "users", user.id), {
+          last_alert: null,
+          sos: false,
+        });
+      }
+    };
+    ```
+
+=== "admin/src/App.jsx - exportar CSV"
+    ```jsx
+    const exportToCSV = () => {
+      if (users.length === 0) return;
+
+      const headers = ["ID,Nombre,Correo,Cane_ID,Fecha_Registro\n"];
+      const rows = users.map((user) =>
+        `"${user.id}","${user.name || ""}","${user.email || ""}","${user.cane_id || ""}","${user.created_at || ""}"`
+      );
+
+      const csvContent =
+        "data:text/csv;charset=utf-8," + headers.concat(rows).join("\n");
+
+      const link = document.createElement("a");
+      link.setAttribute("href", encodeURI(csvContent));
+      link.setAttribute("download", "xgio_usuarios_export.csv");
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+    ```
+
+=== "admin/src/App.jsx - configuracion local"
+    ```jsx
+    const SETTINGS_KEY = "xgio_admin_settings";
+
+    const defaultSettings = {
+      adminName: "Administrador",
+      sosEmailAlerts: true,
+      sosSound: true,
+      fallAlerts: true,
+      batteryWarnThreshold: 30,
+      batteryCriticalThreshold: 15,
+      bleDeviceName: "XGIO-Cane-01",
+    };
+
+    function loadSettings() {
+      try {
+        const stored = localStorage.getItem(SETTINGS_KEY);
+        return stored
+          ? { ...defaultSettings, ...JSON.parse(stored) }
+          : defaultSettings;
+      } catch {
+        return defaultSettings;
+      }
     }
-  );
-  return () => unsub(); // Limpieza al desmontar
-}, []);
 
-// Métricas derivadas
-const activeCanesCount = users.filter(u => u.cane_id?.trim() !== "").length;
-const sosCount = users.filter(u => u.last_alert === "SOS").length;
-```
-
-Las 4 métricas que muestra son:
-- **Total de Usuarios** registrados en la plataforma
-- **Bastones Vinculados** (usuarios que completaron el escaneo de QR)
-- **Rutas Registradas** (métrica en desarrollo)
-- **Alertas S.O.S Activas** — se colorea de rojo si hay emergencias en curso
+    const saveSettings = () => {
+      setSettings(settingsDraft);
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(settingsDraft));
+    };
+    ```
 
 ---
 
-### 2. Mapa GPS en Tiempo Real
+## Diseno y Paleta de Colores
 
-El módulo de mapa filtra automáticamente los usuarios que enviaron una ubicación en los **últimos 5 minutos** y los muestra en un panel lateral. Al seleccionar un usuario, el mapa de Google Maps se centra en su coordenada más reciente.
-
-```jsx
-// admin/src/App.jsx — Filtrado de usuarios activos en tiempo real
-const renderMap = () => {
-  const ACTIVE_THRESHOLD_MS = 5 * 60 * 1000; // 5 minutos
-  const now = Date.now();
-
-  const activeUsers = users
-    .filter(u => u.cane_id)
-    .map(u => {
-      const locData = locationsByUser[u.id] || null;
-      const last = locData?.last || null;
-      const diffMs = last ? now - new Date(last.timestamp).getTime() : Infinity;
-      return { ...u, last, diffMs };
-    })
-    .filter(u => u.diffMs <= ACTIVE_THRESHOLD_MS)
-    .sort((a, b) => a.diffMs - b.diffMs); // más reciente primero
-
-  // URL del mapa embed centrada en el usuario seleccionado
-  const mapSrc = selected
-    ? `https://www.google.com/maps?q=${selected.last.latitude},${selected.last.longitude}&z=17&output=embed`
-    : null;
-
-  return (
-    <div>
-      {/* Panel izquierdo: lista de usuarios activos */}
-      {/* Panel derecho: iframe de Google Maps */}
-      {mapSrc && <iframe src={mapSrc} title="Ubicación en vivo" />}
-    </div>
-  );
-};
-```
-
----
-
-### 3. Gestión de Alertas S.O.S
-
-Cuando el bastón detecta una caída o el usuario presiona el botón de emergencia, el campo `last_alert` en Firestore se actualiza a `"SOS"` o `"FALL"`. El dashboard lo detecta en tiempo real y puede **resetear el estado** de emergencia directamente desde la interfaz:
-
-```jsx
-// admin/src/App.jsx — Función para resetear alertas activas
-const resetAlerts = async () => {
-  const usersWithAlerts = users.filter(
-    u => u.last_alert === "SOS" || u.last_alert === "FALL"
-  );
-  for (const u of usersWithAlerts) {
-    await updateDoc(doc(db, "users", u.id), {
-      last_alert: null,
-      sos: false
-    });
-  }
-};
-```
-
----
-
-### 4. Exportación de Datos a CSV
-
-```jsx
-// admin/src/App.jsx — Exportar directorio de usuarios a CSV
-const exportToCSV = () => {
-  if (users.length === 0) return;
-  const headers = ['ID,Nombre,Correo,Cane_ID,Fecha_Registro\n'];
-  const rows = users.map(u =>
-    `"${u.id}","${u.name || ''}","${u.email || ''}","${u.cane_id || ''}","${u.created_at || ''}"`
-  );
-  const csvContent = "data:text/csv;charset=utf-8," + headers.concat(rows).join("\n");
-  const link = document.createElement("a");
-  link.setAttribute("href", encodeURI(csvContent));
-  link.setAttribute("download", "xgio_usuarios_export.csv");
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
-```
-
----
-
-### 5. Sistema de Configuración (persiste en localStorage)
-
-El panel guarda las preferencias del administrador localmente para que sobrevivan recargas de página sin necesidad de una base de datos adicional:
-
-```jsx
-// admin/src/App.jsx — Persistencia de configuración
-const SETTINGS_KEY = 'xgio_admin_settings';
-const defaultSettings = {
-  adminName:             'Administrador',
-  sosEmailAlerts:        true,
-  sosSound:              true,
-  fallAlerts:            true,
-  batteryWarnThreshold:  30,   // % — amarillo
-  batteryCriticalThreshold: 15, // % — rojo
-  bleDeviceName:         'XGIO-Cane-01',
-};
-
-function loadSettings() {
-  try {
-    const stored = localStorage.getItem(SETTINGS_KEY);
-    return stored ? { ...defaultSettings, ...JSON.parse(stored) } : defaultSettings;
-  } catch {
-    return defaultSettings;
-  }
-}
-
-const saveSettings = () => {
-  setSettings(settingsDraft);
-  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settingsDraft));
-};
-```
-
----
-
-## 🎨 Diseño y Paleta de Colores
-
-El dashboard usa un tema oscuro (`dark mode`) consistente con la app móvil:
+El dashboard usa un tema oscuro consistente con la aplicacion movil:
 
 ```css
-/* admin/src/index.css — Variables del tema XGIO */
 :root {
-  --bg-dark:        #030712;  /* Fondo principal — gray-950   */
-  --bg-panel:       #111827;  /* Tarjetas y sidebar — gray-900 */
-  --bg-panel-hover: #1f2937;  /* Hover estados — gray-800     */
+  --bg-dark: #030712;
+  --bg-panel: #111827;
+  --bg-panel-hover: #1f2937;
 
-  --accent-blue:    #2563eb;  /* Color principal — blue-600   */
-  --accent-green:   #10b981;  /* Éxito / activo — emerald-500 */
-  --accent-red:     #ef4444;  /* Alertas / error — red-500    */
-  --accent-amber:   #f59e0b;  /* Advertencia — amber-500      */
+  --accent-blue: #2563eb;
+  --accent-green: #10b981;
+  --accent-red: #ef4444;
+  --accent-amber: #f59e0b;
 
-  --text-primary:   #ffffff;
-  --text-secondary: #9ca3af;  /* gray-400 */
+  --text-primary: #ffffff;
+  --text-secondary: #9ca3af;
 }
 ```
 
 ---
 
-## 🚀 Cómo Correr el Dashboard
+## Como Correr el Dashboard
 
 ```bash
 cd admin
