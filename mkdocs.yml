@@ -19,16 +19,16 @@ theme:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: indigo
+      primary: red
+      accent: amber
       toggle:
         icon: material/brightness-7
         name: Cambiar a modo oscuro
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
-      accent: indigo
+      primary: red
+      accent: amber
       toggle:
         icon: material/brightness-4
         name: Cambiar a modo claro
@@ -39,6 +39,8 @@ nav:
     - Aplicación Móvil (App): app.md
     - Servidor (Backend): backend.md
     - Hardware (Firmware): firmware.md
+  - Resultados y Pruebas:
+    - Análisis GPS: pruebas_gps.md
   - Documentación: descargas.md
 
 plugins:
@@ -48,3 +50,9 @@ markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
