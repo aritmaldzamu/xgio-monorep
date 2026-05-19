@@ -18,28 +18,33 @@ theme:
   palette:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: red
-      accent: amber
+      scheme: slate
+      primary: deep purple
+      accent: blue
       toggle:
         icon: material/brightness-7
-        name: Cambiar a modo oscuro
+        name: Cambiar a modo claro
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: red
-      accent: amber
+      primary: deep purple
+      accent: blue
       toggle:
         icon: material/brightness-4
-        name: Cambiar a modo claro
+        name: Cambiar a modo oscuro
+  font:
+    text: Inter
+    code: JetBrains Mono
 
 nav:
   - Inicio: index.md
   - Guía de Instalación: instalacion.md
   - Componentes:
     - Aplicación Móvil (App): app.md
+    - Panel de Administración: dashboard.md
     - Servidor (Backend): backend.md
     - Hardware (Firmware): firmware.md
+  - Laboratorio de Código: codigos.md
   - Resultados y Pruebas:
     - Análisis GPS: pruebas_gps.md
   - Documentación: descargas.md
