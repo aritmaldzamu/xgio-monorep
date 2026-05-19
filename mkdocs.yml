@@ -35,6 +35,7 @@ theme:
 
 nav:
   - Inicio: index.md
+  - Guía de Instalación: instalacion.md
   - Componentes:
     - Aplicación Móvil (App): app.md
     - Servidor (Backend): backend.md
