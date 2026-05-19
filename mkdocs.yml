@@ -1,0 +1,50 @@
+site_name: XGIO - Sistema de Rastreo GPS
+site_description: Documentación oficial del proyecto XGIO para personas con discapacidad visual.
+site_author: Aritmaldzamu
+repo_url: https://github.com/aritmaldzamu/xgio-monorep
+
+theme:
+  name: material
+  logo: material/walk
+  favicon: material/walk
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Cambiar a modo oscuro
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Cambiar a modo claro
+
+nav:
+  - Inicio: index.md
+  - Componentes:
+    - Aplicación Móvil (App): app.md
+    - Servidor (Backend): backend.md
+    - Hardware (Firmware): firmware.md
+  - Documentación: descargas.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
