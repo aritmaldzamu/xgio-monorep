@@ -1,0 +1,4 @@
+0000000000000000000000000000000000000000 39d13a5f419e2a22abe3a4d35ec9c935721bec9e Arith <aritmaldzamu@gmail.com> 1776175879 -0600	commit (initial): fix: manejo de token expirado 401
+39d13a5f419e2a22abe3a4d35ec9c935721bec9e 52f521c017cd5cc32f03fccbeee9da0f4b6ddfaf Arith <aritmaldzamu@gmail.com> 1777571669 -0600	commit: feat: implementar escáner de QR nativo y web para registro
+52f521c017cd5cc32f03fccbeee9da0f4b6ddfaf 32f5d410cc5d60fc2b1e91842ef67577329b39c9 Arith <aritmaldzamu@gmail.com> 1777580387 -0600	commit: feat: BLE integration (bleService, home panel), BT permissions, eas.json, react-native-ble-plx
+32f5d410cc5d60fc2b1e91842ef67577329b39c9 fb8de86eb0557bcccd5359978b88b7ce5a800608 Arith <aritmaldzamu@gmail.com> 1779200812 -0600	commit: Finalizing project features, adding pushService and layout updates

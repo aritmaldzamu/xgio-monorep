@@ -1,0 +1,88 @@
+{
+  "expo": {
+    "name": "XGIO",
+    "slug": "xgio",
+    "version": "1.0.0",
+    "scheme": "xgio",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#030712"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.xgio.app",
+      "infoPlist": {
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "XGIO necesita la ubicación para monitorear a tu familiar.",
+        "NSLocationWhenInUseUsageDescription": "XGIO necesita la ubicación para monitorear a tu familiar.",
+        "NSLocationAlwaysUsageDescription": "XGIO necesita la ubicación en segundo plano para monitorear a tu familiar.",
+        "UIBackgroundModes": [
+          "location",
+          "fetch"
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#030712"
+      },
+      "package": "com.xgio.app",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "FOREGROUND_SERVICE",
+        "FOREGROUND_SERVICE_LOCATION",
+        "BLUETOOTH",
+        "BLUETOOTH_ADMIN",
+        "BLUETOOTH_CONNECT",
+        "BLUETOOTH_SCAN",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_BACKGROUND_LOCATION",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_LOCATION"
+      ],
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDGj-c8lTOasXtDHbZVnPmEidrAm1lh2YA"
+        }
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/icon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "XGIO necesita la ubicación para monitorear a tu familiar.",
+          "locationWhenInUsePermission": "XGIO necesita la ubicación para monitorear a tu familiar.",
+          "isIosBackgroundLocationEnabled": true,
+          "isAndroidBackgroundLocationEnabled": true,
+          "isAndroidForegroundServiceEnabled": true
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "a1415483-742b-4442-9931-c220e82e643d"
+      }
+    },
+    "owner": "arith"
+  }
+}

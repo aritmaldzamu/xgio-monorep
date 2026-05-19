@@ -1,0 +1,15 @@
+0000000000000000000000000000000000000000 6f90888335d79f44a6cb2b143ba7d136560911d6 Arith <aritmaldzamu@@gmail.com> 1773272096 -0600	commit (initial): XGIO backend inicial
+6f90888335d79f44a6cb2b143ba7d136560911d6 0000000000000000000000000000000000000000 Arith <aritmaldzamu@@gmail.com> 1773272242 -0600	Branch: renamed refs/heads/master to refs/heads/main
+0000000000000000000000000000000000000000 6f90888335d79f44a6cb2b143ba7d136560911d6 Arith <aritmaldzamu@@gmail.com> 1773272242 -0600	Branch: renamed refs/heads/master to refs/heads/main
+6f90888335d79f44a6cb2b143ba7d136560911d6 0000000000000000000000000000000000000000 Arith <aritmaldzamu@@gmail.com> 1773272274 -0600	Branch: renamed refs/heads/main to refs/heads/main
+6f90888335d79f44a6cb2b143ba7d136560911d6 6f90888335d79f44a6cb2b143ba7d136560911d6 Arith <aritmaldzamu@@gmail.com> 1773272274 -0600	Branch: renamed refs/heads/main to refs/heads/main
+6f90888335d79f44a6cb2b143ba7d136560911d6 5d7217be862960123fdffa069d63170404f18a15 Arith <aritmaldzamu@@gmail.com> 1773273106 -0600	commit: fix: private key newlines
+5d7217be862960123fdffa069d63170404f18a15 bd139c851cf97288b173e5fcd3ba6d93099cf802 Arith <aritmaldzamu@gmail.com> 1773273280 -0600	commit: fix: git user email
+bd139c851cf97288b173e5fcd3ba6d93099cf802 b0395b872edbe1ead7d6389f65a0749fd1be1e80 Arith <aritmaldzamu@gmail.com> 1773282755 -0600	commit: fix: use serviceAccount.json
+b0395b872edbe1ead7d6389f65a0749fd1be1e80 47e5e27e80c1734385468823716906656dd398ab Arith <aritmaldzamu@gmail.com> 1773283050 -0600	commit: force redeploy serviceAccount
+47e5e27e80c1734385468823716906656dd398ab 15efbf1cd534163f6343f226972aeb43f5d96573 Arith <aritmaldzamu@gmail.com> 1777570307 -0600	commit: feat: añadido endpoint de /register
+15efbf1cd534163f6343f226972aeb43f5d96573 c21394ed7c7340d63fd81435c93a272217a29daa Arith <aritmaldzamu@gmail.com> 1777571658 -0600	commit: feat: hacer obligatorio el escaneo de QR (cane_id)
+c21394ed7c7340d63fd81435c93a272217a29daa 3fbe23beb94bfb51a9f7146cdb8a5d7c3f08af61 Arith <aritmaldzamu@gmail.com> 1779200828 -0600	commit: Adding dispersion analysis and interactive maps
+3fbe23beb94bfb51a9f7146cdb8a5d7c3f08af61 d6ab169878e90ce2ba08beeed67a1c6043975011 Arith <aritmaldzamu@gmail.com> 1779200846 -0600	pull --rebase (start): checkout d6ab169878e90ce2ba08beeed67a1c6043975011
+d6ab169878e90ce2ba08beeed67a1c6043975011 08c95fa677ac3df24504cf38320eaa1d7ae0434a Arith <aritmaldzamu@gmail.com> 1779200846 -0600	pull --rebase (pick): Adding dispersion analysis and interactive maps
+08c95fa677ac3df24504cf38320eaa1d7ae0434a 08c95fa677ac3df24504cf38320eaa1d7ae0434a Arith <aritmaldzamu@gmail.com> 1779200846 -0600	pull --rebase (finish): returning to refs/heads/main
