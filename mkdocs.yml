@@ -5,8 +5,8 @@ repo_url: https://github.com/aritmaldzamu/xgio-monorep
 
 theme:
   name: material
-  logo: material/walk
-  favicon: material/walk
+  logo: assets/imagenes/logo_ibero.png
+  favicon: assets/imagenes/logo_ibero.png
   features:
     - navigation.tabs
     - navigation.sections
