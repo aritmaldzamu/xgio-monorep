@@ -11,25 +11,25 @@ Al iniciar, la aplicación permite configurar el dispositivo como "Cuidador" o c
 La pantalla de inicio del Cuidador permite enlazar el bastón vía Bluetooth y ver su estado de batería.
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-  <img src="/xgio-monorep/assets/imagenes/seleccion_rol.jpeg" alt="Selección de Rol" width="220" style="margin: 5px;" />
-  <img src="/xgio-monorep/assets/imagenes/inicio_app.jpeg" alt="Inicio de App" width="220" style="margin: 5px;" />
-  <img src="/xgio-monorep/assets/imagenes/estado_baston.jpeg" alt="Estado del Bastón" width="220" style="margin: 5px;" />
+  <img src="../assets/imagenes/seleccion_rol.jpeg" alt="Selección de Rol" width="220" style="margin: 5px;" />
+  <img src="../assets/imagenes/inicio_app.jpeg" alt="Inicio de App" width="220" style="margin: 5px;" />
+  <img src="../assets/imagenes/estado_baston.jpeg" alt="Estado del Bastón" width="220" style="margin: 5px;" />
 </div>
 
 ### 2. Rastreo GPS en Tiempo Real e Historial
 Los cuidadores pueden visualizar la ubicación exacta del usuario en un mapa y revisar el historial de puntos registrados durante la semana.
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-  <img src="/xgio-monorep/assets/imagenes/mapa_recorrido.jpeg" alt="Mapa del Recorrido" width="250" style="margin: 5px;" />
-  <img src="/xgio-monorep/assets/imagenes/historial_rutas.jpeg" alt="Historial de Rutas" width="250" style="margin: 5px;" />
+  <img src="../assets/imagenes/mapa_recorrido.jpeg" alt="Mapa del Recorrido" width="250" style="margin: 5px;" />
+  <img src="../assets/imagenes/historial_rutas.jpeg" alt="Historial de Rutas" width="250" style="margin: 5px;" />
 </div>
 
 ### 3. Sistema de Alertas (S.O.S y Caídas)
 El sistema envía notificaciones críticas instantáneas si el usuario presiona el botón S.O.S físico del bastón, o si el acelerómetro detecta un impacto que sugiera una caída.
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-  <img src="/xgio-monorep/assets/imagenes/alerta_sos.jpeg" alt="Alerta SOS" width="250" style="margin: 5px;" />
-  <img src="/xgio-monorep/assets/imagenes/alerta_caida.jpeg" alt="Alerta Caída" width="250" style="margin: 5px;" />
+  <img src="../assets/imagenes/alerta_sos.jpeg" alt="Alerta SOS" width="250" style="margin: 5px;" />
+  <img src="../assets/imagenes/alerta_caida.jpeg" alt="Alerta Caída" width="250" style="margin: 5px;" />
 </div>
 
 ---
