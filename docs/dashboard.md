@@ -66,6 +66,19 @@ La pantalla de configuracion permite personalizar el perfil del administrador, d
 !!! tip "Preferencias persistentes"
     Las opciones de configuracion se guardan en `localStorage`, por lo que no requieren una coleccion adicional en Firebase.
 
+### 6. Base de Datos en Firestore
+
+Firestore es la base de datos principal del dashboard. La coleccion `users` almacena cada usuario como un documento independiente, con campos como `name`, `email` y `cane_id`. A partir de esos documentos, el panel construye las metricas, el directorio, la salud de dispositivos y las alertas.
+
+<div align="center">
+  <img src="../assets/imagenes/dashboard_firestore.png" alt="Firestore - coleccion users" width="700" />
+</div>
+
+!!! note "Modelo de datos"
+    Cada documento dentro de `users` representa a una persona registrada. Cuando el usuario enlaza su baston, el campo `cane_id` permite relacionar ese registro con el dispositivo fisico.
+
+El dashboard tambien consulta subcolecciones por usuario, como `CurrentLocation`, para obtener el ultimo paquete GPS enviado por la app movil. Ese flujo permite que el panel muestre ubicacion en vivo sin refrescar la pagina.
+
 ---
 
 ## Arquitectura y Stack
@@ -113,6 +126,46 @@ El dashboard esta construido alrededor de datos sincronizados en tiempo real y c
     ).length;
     ```
 
+=== "admin/src/lib/firebase.js - conexion"
+    ```jsx
+    import { initializeApp } from "firebase/app";
+    import { getFirestore } from "firebase/firestore";
+
+    const firebaseConfig = {
+      apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+      authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+      projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+      storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+      messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+      appId: import.meta.env.VITE_FIREBASE_APP_ID,
+    };
+
+    const app = initializeApp(firebaseConfig);
+    export const db = getFirestore(app);
+    ```
+
+=== "admin/src/App.jsx - estructura Firestore"
+    ```jsx
+    /*
+      users/{userId}
+        name: "ArithPrueba2"
+        email: "zamudio.maldonado.arith@gmail.com"
+        cane_id: "5"
+        last_alert: "SOS" | "FALL" | null
+        battery: 78
+        ble_connected: true
+
+      users/{userId}/CurrentLocation/{date}
+        locations: [
+          {
+            latitude: 19.4326,
+            longitude: -99.1332,
+            timestamp: "2026-05-19T18:00:00.000Z"
+          }
+        ]
+    */
+    ```
+
 === "admin/src/App.jsx - mapa GPS"
     ```jsx
     const renderMap = () => {
@@ -143,6 +196,37 @@ El dashboard esta construido alrededor de datos sincronizados en tiempo real y c
         </div>
       );
     };
+    ```
+
+=== "admin/src/App.jsx - ubicacion por usuario"
+    ```jsx
+    useEffect(() => {
+      if (users.length === 0) return;
+
+      const unsubs = users
+        .filter((user) => user.cane_id)
+        .map((user) => {
+          const ref = collection(db, "users", user.id, "CurrentLocation");
+
+          return onSnapshot(ref, (snap) => {
+            const docs = snap.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+
+            const sorted = docs.sort((a, b) => b.id.localeCompare(a.id));
+            const locs = sorted[0]?.locations || [];
+            const last = locs[locs.length - 1] || null;
+
+            setLocationsByUser((prev) => ({
+              ...prev,
+              [user.id]: { last, history: locs },
+            }));
+          });
+        });
+
+      return () => unsubs.forEach((unsub) => unsub());
+    }, [users]);
     ```
 
 === "admin/src/App.jsx - reset de alertas"
