@@ -69,6 +69,70 @@ Los archivos de SolidWorks se incluyeron en la documentacion para que el diseno 
 !!! note "Recomendacion"
     Para abrir el ensamble sin perder referencias, usa el paquete completo ZIP. Los archivos individuales tambien estan disponibles para revision rapida.
 
+## Prototipo Impreso y Ajuste de Tolerancias
+
+Despues del modelado inicial se imprimieron prototipos fisicos para validar medidas, ensamble y espacio real para la electronica. Las piezas blancas corresponden al primer diseno impreso; las piezas negras corresponden al diseno con modificaciones de tolerancias y medidas.
+
+El modelo final conserva el alojamiento para la placa T-Beam, el hueco lateral de acceso y el volumen interno para cableado/antena. La iteracion en negro ya incluye correcciones dimensionales, aunque la impresion no salio correctamente porque la pieza se desplazo durante el proceso, probablemente despues de una pausa o interrupcion de la impresora.
+
+<div align="center">
+  <img src="../assets/imagenes/baston_modelo_final_solidworks.png" alt="Modelo final de carcasa en SolidWorks" width="700" />
+</div>
+
+!!! note "Aprendizaje de fabricacion"
+    Aunque el diseno negro ya tenia ajustes de tolerancia, la impresion quedo desplazada. Por eso se documenta como evidencia de prueba de fabricacion, no como pieza final aceptada.
+
+### Primer Diseno Impreso
+
+Las piezas blancas muestran la primera validacion fisica del mango. Sirvieron para revisar la forma general, la apertura frontal, los cortes laterales y el volumen de la carcasa antes de ajustar tolerancias.
+
+<div align="center">
+  <img src="../assets/imagenes/impresion_baston_primer_diseno_blanco_frontal.jpeg" alt="Primer diseno impreso en blanco - vista frontal" width="520" />
+</div>
+
+<div align="center">
+  <img src="../assets/imagenes/impresion_baston_primer_diseno_blanco_exterior_lateral.jpeg" alt="Primer diseno impreso en blanco - vista lateral exterior" width="520" />
+</div>
+
+<div align="center">
+  <img src="../assets/imagenes/impresion_baston_primer_diseno_blanco_exterior_curvo.jpeg" alt="Primer diseno impreso en blanco - superficie curva exterior" width="520" />
+</div>
+
+<div align="center">
+  <img src="../assets/imagenes/impresion_baston_primer_diseno_blanco_perfil.jpeg" alt="Primer diseno impreso en blanco - perfil de la carcasa" width="520" />
+</div>
+
+### Diseno Negro con Correcciones
+
+Las piezas negras corresponden al diseno modificado con tolerancias y medidas corregidas. En estas fotos se aprecia mejor el alojamiento interno, los postes de sujecion y el espacio para la placa, pero tambien se observa el desplazamiento de capas provocado durante la impresion.
+
+<div align="center">
+  <img src="../assets/imagenes/impresion_baston_diseno_negro_desplazado_frontal.jpeg" alt="Diseno negro corregido con desplazamiento - vista frontal" width="520" />
+</div>
+
+<div align="center">
+  <img src="../assets/imagenes/impresion_baston_diseno_negro_desplazado_interior.jpeg" alt="Diseno negro corregido con desplazamiento - interior" width="520" />
+</div>
+
+<div align="center">
+  <img src="../assets/imagenes/impresion_baston_diseno_negro_desplazado_superior.jpeg" alt="Diseno negro corregido con desplazamiento - vista superior" width="520" />
+</div>
+
+<div align="center">
+  <img src="../assets/imagenes/impresion_baston_diseno_negro_desplazado_exterior.jpeg" alt="Diseno negro corregido con desplazamiento - exterior" width="520" />
+</div>
+
+### Archivos Finales de Impresion
+
+Para esta iteracion se agregaron los archivos finales del mango corregido en formato **STL** y **SLDPRT**. El STL se usa para rebanado e impresion 3D, mientras que el SLDPRT conserva el modelo editable en SolidWorks.
+
+| Archivo | Descripcion |
+|---|---|
+| [STL final con tolerancias](assets/cad/diseno_baston/carcasa_mango_final_tolerancias.STL) | Modelo final para impresion 3D |
+| [SLDPRT final editable](assets/cad/diseno_baston/carcasa_mango_final_tolerancias.SLDPRT) | Pieza final editable en SolidWorks |
+| [Ensamble final](assets/cad/diseno_baston/baston_ensamble_final_tolerancias.SLDASM) | Ensamble actualizado con la carcasa corregida |
+| [Paquete final de impresion](assets/cad/diseno_baston_impresion_final.zip) | ZIP con STL, SLDPRT y ensamble final |
+
 ## Codigo C++ (Arduino Core)
 
 El codigo principal utiliza un modelo basado en maquinas de estados y subrutinas para no bloquear el procesador. El baston toma lecturas GPS, detecta eventos importantes y publica telemetria para que la app y el dashboard puedan mostrar el estado del usuario.

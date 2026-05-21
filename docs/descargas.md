@@ -42,9 +42,13 @@ Archivos CAD del modelo mecanico desarrollado en SolidWorks para la carcasa supe
 | Placa de referencia T-Beam | [Descargar SLDPRT](assets/cad/diseno_baston/placa_referencia_tbeam.SLDPRT) |
 | Variante de carcasa | [Descargar SLDPRT](assets/cad/diseno_baston/carcasa_mango_baston_variante.SLDPRT) |
 | Variante 2 de carcasa | [Descargar SLDPRT](assets/cad/diseno_baston/carcasa_mango_baston_variante_2.SLDPRT) |
+| Paquete final de impresion | [Descargar ZIP](assets/cad/diseno_baston_impresion_final.zip) |
+| STL final con tolerancias | [Descargar STL](assets/cad/diseno_baston/carcasa_mango_final_tolerancias.STL) |
+| Pieza final editable | [Descargar SLDPRT](assets/cad/diseno_baston/carcasa_mango_final_tolerancias.SLDPRT) |
+| Ensamble final con tolerancias | [Descargar SLDASM](assets/cad/diseno_baston/baston_ensamble_final_tolerancias.SLDASM) |
 
 !!! note "SolidWorks"
-    Para abrir el ensamble con todas sus referencias, descarga el paquete ZIP completo. Los archivos individuales sirven para revisar o reutilizar piezas especificas.
+    Para abrir el ensamble con todas sus referencias, descarga el paquete ZIP completo. Para impresion 3D directa, usa el STL final con tolerancias.
 
 ---
 
