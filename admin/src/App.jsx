@@ -968,16 +968,3 @@ function App() {
 }
 
 export default App
-
-{ activeTab === 'users' && renderUsers() }
-{ activeTab === 'map' && renderMap() }
-{ activeTab === 'devices' && renderDevices() }
-{ activeTab === 'settings' && renderSettings() }
-
-      </main >
-    </div >
-  )
-}
-
-export default App
-
